@@ -1,0 +1,159 @@
+.browser-window .window__titlebar {
+  background: #2c2c2e;
+  border-bottom: 1px solid rgba(0,0,0,0.4);
+  height: 36px;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.browser-chrome {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1e1e1e;
+}
+
+/* Tab strip */
+.browser-tabs {
+  height: 36px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 80px 0 12px;
+  background: #2c2c2e;
+  gap: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.4);
+}
+
+.browser-tab {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: #1e1e1e;
+  border-radius: 6px 6px 0 0;
+  font-family: var(--font-sys);
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-bottom: none;
+  max-width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.browser-tab__favicon {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.browser-tab__close {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.1s, background 0.1s;
+  cursor: pointer;
+  font-size: 9px;
+  color: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.browser-tab:hover .browser-tab__close {
+  opacity: 1;
+}
+
+.browser-tab__close:hover {
+  background: rgba(255,255,255,0.15);
+  opacity: 1;
+}
+
+/* Address bar */
+.browser-addressbar {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  background: #2c2c2e;
+  border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+.browser-nav-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.browser-nav-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.85);
+}
+
+.browser-urlbar {
+  flex: 1;
+  height: 26px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 6px;
+  cursor: text;
+  font-size: 12px;
+  font-family: var(--font-sys);
+  color: rgba(255,255,255,0.75);
+  transition: border-color 0.15s;
+}
+
+.browser-urlbar:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.browser-urlbar__lock {
+  font-size: 11px;
+  color: rgba(100,220,100,0.7);
+}
+
+.browser-urlbar__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browser-urlbar__text input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgba(255,255,255,0.75);
+  font: inherit;
+  width: 100%;
+  cursor: text;
+}
+
+.browser-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
