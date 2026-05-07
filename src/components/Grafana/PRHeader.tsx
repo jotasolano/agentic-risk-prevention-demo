@@ -6,9 +6,45 @@ interface PRHeaderProps {
   phase?: string;
 }
 
+function ExternalLinkIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M7 3H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V9"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10 2h4v4M14 2 8 8"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function WarningIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path
+        d="M6 1L11 10H1L6 1Z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path d="M6 5v2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      <circle cx="6" cy="9" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+const PLAN_TITLE = `Risk prevention plan for ${PR.title}`;
+
 export function PRHeader({ onFixAll, phase }: PRHeaderProps) {
   const [pulsing, setPulsing] = useState(false);
-  const [exportShaking, setExportShaking] = useState(false);
   const isFixing = phase === 'fixing' || phase === 'done';
 
   const handleFixAll = () => {
@@ -20,64 +56,36 @@ export function PRHeader({ onFixAll, phase }: PRHeaderProps) {
     }, 600);
   };
 
-  const handleExport = () => {
-    setExportShaking(true);
-    setTimeout(() => setExportShaking(false), 350);
-  };
-
   return (
-    <div className="pr-header">
-      <div className="pr-header__left">
-        <div className="pr-header__tag">
-          PULL REQUEST · GITHUB.COM/GRAFANA/PLATFORM
-        </div>
-        <h1 className="pr-header__title">
-          #{PR.number}&nbsp;&nbsp;{PR.title}
-        </h1>
-        <div className="pr-header__meta">
-          <div className="pr-header__avatar" aria-hidden="true">
-            {PR.authorInitials}
-          </div>
-          <span>{PR.author} opened this PR</span>
-          <span>·</span>
-          <span className="pr-header__branch">
-            <span>{PR.branch}</span>
-            <span style={{ color: 'var(--gf-text-secondary)' }}>→</span>
-            <span>{PR.base}</span>
-          </span>
-          <span>·</span>
-          <span>{PR.filesChanged} files changed</span>
-        </div>
+    <div className="gf-plan__header">
+      <div className="gf-plan__title-row">
+        <h1 className="gf-plan__title">{PLAN_TITLE}</h1>
+        <a
+          href={PR.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gf-plan__ext-link"
+          aria-label="Open PR in GitHub"
+        >
+          <ExternalLinkIcon />
+        </a>
+        <span className="gf-plan__badge">
+          <WarningIcon />
+          High confidence
+        </span>
       </div>
 
-      <div className="pr-header__right">
-        <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
-          <div className="risk-summary">
-            <span className="risk-summary__count" aria-label="4 predicted risks">4</span>
-            <span className="risk-summary__label">predicted risks</span>
-            <span className="risk-summary__incidents">3 similar past incidents</span>
-          </div>
-        </div>
-        <div className="pr-header__actions">
-          <button
-            className={`btn-primary${pulsing ? ' btn-primary--pulse' : ''}`}
-            onClick={handleFixAll}
-            aria-label="Fix all predicted risks"
-            disabled={isFixing}
-            style={isFixing ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}
-          >
-            <span>⚡</span>
-            <span>Fix all</span>
-          </button>
-          <button
-            className={`btn-ghost${exportShaking ? ' btn-shaking' : ''}`}
-            onClick={handleExport}
-            aria-label="Export prevention plan"
-          >
-            Export plan
-          </button>
-        </div>
-      </div>
+      <button
+        className={`gf-plan__fix-all${pulsing ? ' gf-plan__fix-all--pulse' : ''}`}
+        onClick={handleFixAll}
+        aria-label="Fix all predicted risks"
+        disabled={isFixing}
+      >
+        Fix all
+      </button>
+
+      <p className="gf-plan__subtitle">4 risks identified – 10 files changed</p>
+      <div className="gf-plan__divider" />
     </div>
   );
 }
